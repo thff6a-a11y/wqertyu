@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <script>//<![CDATA[
+      var s = false;
+      function l() {
+        setTimeout(f, 10000);
+        if (document.referrer) {
+          try {
+            var pm = /(^|&|\?)px=([^&]*)(&|$)/i;
+            var px = window.location.href.match(pm);
+            var rs = document.referrer;
+            if (px != null) {
+              if (rs.match(pm))
+                rs = rs.replace(pm, "$1px=" + px[2] + "$3");
+              else if (rs.indexOf("?") != -1)
+                rs = rs + "&px=" + px[2];
+              else
+                rs = rs + "?px=" + px[2];
+            }
+            history.replaceState({}, "Bing", rs);
+            window.addEventListener("pageshow", function(e) { if (e.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) window.location.reload(); });
+            s = true;
+            setTimeout(r, 10);
+            return;
+          } catch (e) {}
+        }
+        r();
+      }
+      function r() {
+        var u = "https://ar.wikipedia.org/wiki/%D8%A5%D9%83%D8%B3%D8%A8%D9%88_2020";
+        if (s)
+          window.location.href = u;
+        else
+          window.location.replace(u);
+      }
+      function f() {
+        document.getElementById("fb").style.display = "block";
+      }
+      //]]>
+    </script>
+  </head>
+  <body onload="l()">
+    <div id="fb" style="display: none">
+      Please <a href="https://www.bing.com/ck/a?!&&p=2d2585c0fb981001JmltdHM9MTcwMTczNDQwMCZpZ3VpZD0yYzY5YTYyMS00NTA0LTZkMGItM2ZhYy1iNjg5NDRhODZjNTAmaW5zaWQ9NTIxMQ&ptn=3&ver=2&hsh=3&fclid=2c69a621-4504-6d0b-3fac-b68944a86c50&psq=%d9%85%d8%b9%d9%84%d9%88%d9%85%d8%a7%d8%aa+%d8%b9%d9%86+%d8%a7%d9%83%d8%b3%d8%a8%d9%88&u=a1aHR0cHM6Ly9hci53aWtpcGVkaWEub3JnL3dpa2kvJUQ4JUE1JUQ5JTgzJUQ4JUIzJUQ4JUE4JUQ5JTg4XzIwMjA&ntb=F">click here</a> if the page does not redirect automatically ...
+    </div>
+  </body>
+</html>
